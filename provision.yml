@@ -12,7 +12,7 @@
          image: ami-2051294a
          exact_count: 2
          count_tags:
-           Name: Ansible-Tower-Test
+           Name: Ansible_Tower_Test
          wait: true
          region: us-east-1
          vpc_subnet_id: subnet-16beee3d

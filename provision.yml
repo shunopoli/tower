@@ -14,7 +14,6 @@
          wait: true
          region: us-east-1
          vpc_subnet_id: subnet-16beee3d
-         profile: proj
       register: ec2   
 
     - name: Add new host to our inventory.
@@ -39,5 +38,5 @@
   gather_facts: True
 
   tasks:
-    - name: Run yum update
-      yum: name=* state=latest
+    - name: Copy test file
+      copy: content=testing ansible tower dest=/tmp/tower.txt

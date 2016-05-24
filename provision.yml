@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create new ec2 instances.
+      ec2:
+         key_name: ssa-prj-acct-prim
+         group_id: sg-c25158a5
+         instance_type: t2.micro
+         image: ami-2051294a
+         count: 2
+         wait: true
+         region: us-east-1
+         vpc_subnet_id: subnet-16beee3d
+         profile: proj
+      register: ec2   
+
+    - name: Add new host to our inventory.
+      add_host:
+        name: "{{ item.private_ip }}"
+        groupname: launched
+      with_items: ec2.instances
+    
+    - name: Wait for 22 to become available.
+      wait_for: 
+        host: "{{ item.private_ip }}"
+        port: 22
+        delay: 60
+        timeout: 320
+        state: started
+      with_items: ec2.instances
+
+
+- name: Configure Launched instances
+  hosts: launched
+  become: True
+  gather_facts: True
+
+  tasks:
+    - name: Run yum update
+      yum: name=* state=latest

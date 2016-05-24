@@ -10,7 +10,9 @@
          group_id: sg-c25158a5
          instance_type: t2.micro
          image: ami-2051294a
-         count: 2
+         exact_count: 2
+         count_tags:
+           Name: Ansible-Tower-Test
          wait: true
          region: us-east-1
          vpc_subnet_id: subnet-16beee3d

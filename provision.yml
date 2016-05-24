@@ -41,4 +41,4 @@
 
   tasks:
     - name: Copy test file
-      copy: content=testing ansible tower dest=/tmp/tower.txt
+      copy: content='testing ansible tower' dest=/tmp/tower.txt
